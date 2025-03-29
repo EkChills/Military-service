@@ -97,13 +97,13 @@ export default function MilitaryServiceForm() {
   })
 
   // Use field array for dynamic courses
-  const { fields: courseFields, replace: replaceCourses } = useFieldArray({
+  const { fields: courseFields, replace: replaceCourses } = useFieldArray<any>({
     control,
     name: "courses",
   })
 
   // Use field array for appointments
-  const { fields: appointmentFields } = useFieldArray({
+  const { fields: appointmentFields } = useFieldArray<any>({
     control,
     name: "appointments",
   })
