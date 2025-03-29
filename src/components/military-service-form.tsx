@@ -63,7 +63,6 @@ export default function MilitaryServiceForm() {
     watch,
     setValue,
     formState: { errors, isSubmitting },
-    reset,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
