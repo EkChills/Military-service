@@ -1,20 +1,20 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import { useForm, Controller, useFieldArray } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import * as z from "zod"
+import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { nigerianStates } from "@/lib/constants"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { AlertCircle, ArrowLeft, ArrowRight, Check } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Controller, useFieldArray, useForm } from "react-hook-form"
+import * as z from "zod"
 
 // Define the form schema with Zod
 const formSchema = z.object({
@@ -75,7 +75,6 @@ export default function MilitaryServiceForm() {
     setValue,
     trigger,
     formState: { errors, isSubmitting },
-    reset,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -113,13 +112,13 @@ export default function MilitaryServiceForm() {
   // Use field array for dynamic courses
   const { fields: courseFields, replace: replaceCourses } = useFieldArray({
     control,
-    name: "courses",
+    name: "courses" as any,
   })
 
   // Use field array for appointments
   const { fields: appointmentFields } = useFieldArray({
     control,
-    name: "appointments",
+    name: "appointment" as any,
   })
 
   // Watch for changes in service and numberOfCourses
@@ -251,18 +250,16 @@ export default function MilitaryServiceForm() {
           {steps.map((step, index) => (
             <div
               key={step.id}
-              className={`flex flex-col items-center ${
-                index <= currentStep ? "text-primary" : "text-muted-foreground"
-              }`}
+              className={`flex flex-col items-center ${index <= currentStep ? "text-primary" : "text-muted-foreground"
+                }`}
             >
               <div
-                className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 ${
-                  index < currentStep
+                className={`w-8 h-8 rounded-full flex items-center justify-center mb-1 ${index < currentStep
                     ? "bg-primary text-primary-foreground"
                     : index === currentStep
                       ? "border-2 border-primary text-primary"
                       : "border-2 border-muted-foreground text-muted-foreground"
-                }`}
+                  }`}
               >
                 {index < currentStep ? <Check className="h-4 w-4" /> : index + 1}
               </div>
